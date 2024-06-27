@@ -1,14 +1,17 @@
 package com.hhplus.cleanarch.lecture.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hhplus.cleanarch.lecture.application.LectureService;
+import com.hhplus.cleanarch.lecture.domain.LectureService;
 
-import jakarta.websocket.server.PathParam;
 
 @RestController
 public class LectureController {
@@ -17,15 +20,21 @@ public class LectureController {
 
     @PostMapping("/lectures/apply")
     public boolean apply(
-        @RequestBody long userId
+        @RequestBody LectureApplyDto.Request lectureApplyRequest
     ) {
-        return lectureService.apply(userId);
+        return lectureService.apply(lectureApplyRequest.lectureId(), lectureApplyRequest.userId());
     }
 
     @GetMapping("/lectures/application/{userId}")
     public boolean userApplied(
-        @PathParam("userId") long userId
+        @PathVariable("userId") Long userId,
+        @RequestParam("lectureId") long lectureId
     ) {
-        return lectureService.checkApplication(userId);
+        return lectureService.checkApplication(lectureId, userId);
+    }
+
+    @GetMapping("/lectures")
+    public List<LectureScheduleDto.Response> getLectures() {
+        return lectureService.getLectureSchedules().stream().map(LectureScheduleDto.Mapper::toDto).toList();
     }
 }

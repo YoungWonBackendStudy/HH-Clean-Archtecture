@@ -1,2 +1,7 @@
 spring:
   application.name: cleanarch
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true

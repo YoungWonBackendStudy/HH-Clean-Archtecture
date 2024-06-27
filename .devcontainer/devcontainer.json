@@ -12,8 +12,7 @@
 			"extensions": [
 				"vscjava.vscode-gradle",
 				"vscjava.vscode-java-pack",
-				"vmware.vscode-boot-dev-pack",
-				"c0der-himel.vscode-wev-dev-extension-pack"
+				"vmware.vscode-boot-dev-pack"
 			]
 		}
 	},
