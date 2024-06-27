@@ -26,7 +26,7 @@ public class LectureSchRepositoryImpl implements LectureSchRepository{
     @Override
     @Transactional
     public LectureSchedule selectById(long lectureScheduleId) {
-        var lectureScheduleOptional = lectureSchRepository.findById(lectureScheduleId);
+        var lectureScheduleOptional = lectureSchRepository.findAndLockById(lectureScheduleId);
         if(!lectureScheduleOptional.isPresent()) return null;
 
         return LectureScheduleMapper.toDomain(lectureScheduleOptional.get());

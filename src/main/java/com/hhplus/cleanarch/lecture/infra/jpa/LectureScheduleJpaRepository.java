@@ -13,6 +13,5 @@ import jakarta.persistence.LockModeType;
 
 public interface LectureScheduleJpaRepository extends JpaRepository<LectureScheduleEntity, Long>{
     @Lock(LockModeType.PESSIMISTIC_WRITE) 
-    @Override
-    @NonNull Optional<LectureScheduleEntity> findById(@NonNull Long id);
+    Optional<LectureScheduleEntity> findAndLockById(@NonNull Long id);
 }
